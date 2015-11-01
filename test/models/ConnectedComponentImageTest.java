@@ -66,10 +66,4 @@ public class ConnectedComponentImageTest {
 		{ System.out.println("It's still a picture object after this "
 				+ "method has been run"); }
 	}
-
-	@Test
-	public void testBinaryComponentImage2()
-	{
-		connectedComponentImage1.binaryComponentImage();
-	}
 }
