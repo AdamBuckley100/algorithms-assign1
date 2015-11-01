@@ -50,7 +50,7 @@ public class ConnectedComponentImage {
 		picture = new Picture(fileLocation);
 		input = new Scanner(System.in);
 	}
-	
+
 	/**
 	 * The main method
 	 * @param argvs - unused
@@ -105,7 +105,7 @@ public class ConnectedComponentImage {
 	public int countComponents() {
 		Picture attainBinerizedPic = binaryComponentImage();
 		WeightedQuickUnion weightQuickUnion = new WeightedQuickUnion(attainBinerizedPic.width()*attainBinerizedPic.height());
-		
+
 		for (int i = 0; i < attainBinerizedPic.width(); i++)
 		{
 			for (int j = 0; j < attainBinerizedPic.height(); j++)
@@ -126,6 +126,9 @@ public class ConnectedComponentImage {
 				}
 			}
 		}	
+		// returned the number of components (minus 1 because the background is an
+		// object objectively but not subjectively in the way the user typically will 
+		// look at things.
 		return weightQuickUnion.count() - 1;
 	}
 
@@ -164,12 +167,12 @@ public class ConnectedComponentImage {
 	 */
 	public Picture binaryComponentImage() {
 		Picture pic = new Picture(picture);
-		
+
 		int width = pic.width();
 		int height = pic.height();
-		
+
 		double thresholdPixelValue = 128.0;
-		
+
 		// Convert to black or white.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -234,12 +237,17 @@ public class ConnectedComponentImage {
 	public Picture boundingBoxForEveryObject()
 	{
 		ListMultimap<Integer, Integer> multimap = ArrayListMultimap.create();
+		
+		//get the binary version of the image and assign it to pic.
 		Picture pic = binaryComponentImage();
 
 		WeightedQuickUnion weightQuickUnion = new WeightedQuickUnion(pic.width()*pic.height());
 
+		//An array list of int's is created called roots
+		//This list contains all the roots in the picture of each component.
 		ArrayList<Integer> roots = new ArrayList<Integer>();
 
+		//these "for" loops go through every pixel in the picture (One x+y co-ordinate at a time)
 		for (int i = 0; i < pic.width(); i++)
 		{
 			for (int j = 0; j < pic.height(); j++)
@@ -254,10 +262,15 @@ public class ConnectedComponentImage {
 
 		for(Integer root: roots) 
 		{
+			// two "for" loops going through every pixel again.
 			for (int i = 0; i < pic.width(); i++)
 			{
 				for (int j =0; j < pic.height(); j++)
 				{
+					// if the pixel we are current at is the same as the current root
+					// we are currently looking at then add to the empty multimap:
+					// key as the root int and one of the values in the multimap is
+					// the pixel we are currently at.
 					if (weightQuickUnion.root(linear(i,j)) == root)
 					{
 						multimap.put(root, linear(i,j));
@@ -273,10 +286,15 @@ public class ConnectedComponentImage {
 			int maxY = 0;
 			int minY = pic.height();
 
+			// Go through every pixel.
 			for (int x = 0; x < pic.width(); x++) {
 				for (int y = 0; y < pic.height(); y++) {
+					// If the pixel in question in contained within the root we ae
+					// currently looking at then end this if loop.
 					if (multimap.containsEntry((root), (linear(x,y))))
 					{
+						// if the pixels x value is smaller number than out currently assigned
+						// minX value within this root then change the minX value to x and so on.
 						if (x < minX)
 							minX = x;
 						if (x > maxX)
@@ -289,6 +307,7 @@ public class ConnectedComponentImage {
 				}
 			}
 
+			// Red coloured lines drawn across the single component (horizontally and vertically).
 			for (int x = minX; x <= maxX; x++) {
 				if (multimap.containsEntry((root), (linear(x,minY)))) 
 				{
@@ -313,7 +332,7 @@ public class ConnectedComponentImage {
 		}
 		return pic;
 	}
-	
+
 	/**
 	 * 
 	 * The randomColour method creates a coloured image
@@ -329,12 +348,17 @@ public class ConnectedComponentImage {
 	public Picture randomColour()
 	{
 		ListMultimap<Integer, Integer> multimap = ArrayListMultimap.create();
+
+		//get the binary version of the image and assign it to pic.
 		Picture pic = binaryComponentImage();
 
 		WeightedQuickUnion weightQuickUnion = new WeightedQuickUnion(pic.width()*pic.height());
 
+		//An array list of int's is created called roots
+		//This list contains all the roots in the picture of each component.
 		ArrayList<Integer> roots = new ArrayList<Integer>();
 
+		//these "for" loops go through every pixel in the picture (One x+y co-ordinate at a time)
 		for (int i = 0; i < pic.width(); i++)
 		{
 			for (int j = 0; j < pic.height(); j++)
@@ -349,10 +373,15 @@ public class ConnectedComponentImage {
 
 		for(Integer root: roots) 
 		{
+			// two "for" loops going through every pixel again.
 			for (int i = 0; i < pic.width(); i++)
 			{
 				for (int j =0; j < pic.height(); j++)
 				{
+					// if the pixel we are current at is the same as the current root
+					// we are currently looking at then add to the empty multimap:
+					// key as the root int and one of the values in the multimap is
+					// the pixel we are currently at.
 					if (weightQuickUnion.root(linear(i,j)) == root)
 					{
 						multimap.put(root, linear(i,j));
@@ -361,57 +390,27 @@ public class ConnectedComponentImage {
 			}
 		}
 
-		int maxX = 0;
-		int minX = pic.width();
-		int maxY = 0;
-		int minY = pic.height();
-		
 		for(Integer root: roots)
 		{
 			Random randomization = new Random();
 			Color colour = new Color(randomization.nextInt(255),randomization.nextInt(255),randomization.nextInt(255));
 
+			// Going through every pixel.
 			for (int x = 0; x < pic.width(); x++) {
 				for (int y = 0; y < pic.height(); y++) {
+					// If for the root we are currently looking through, the
+					// multimap contains the pixel we are currently at,
+					// then set that pixel we are at to a certain colour.
 					if (multimap.containsEntry((root), (linear(x,y))))
 					{
-						if (x < minX)
-							minX = x;
-						if (x > maxX)
-							maxX = x;
-						if (y < minY)
-							minY = y;
-						if (y > maxY)
-							maxY = y;
+						pic.set(x, y, colour);
 					}
-				}
-			}
-
-			for (int x = minX; x <= maxX; x++) {
-				if (multimap.containsEntry((root), (linear(x,minY)))) 
-				{
-					pic.set(x, minY, colour);
-				}
-				if (multimap.containsEntry((root), (linear(x,maxY))))
-				{
-					pic.set(x, maxY, colour);
-				}
-			}
-
-			for (int y = minY; y <= maxY; y++) {
-				if (multimap.containsEntry((root), (linear(minX,y)))) 
-				{
-					pic.set(minX, y, colour);
-				}
-				if (multimap.containsEntry((root), (linear(maxX,y))))
-				{
-					pic.set(maxX, y, colour);
 				}
 			}
 		}
 		return pic;
 	}
-	
+
 	/**
 	 * This method is in control of the switch case loop.
 	 * This method calls the mainMenu() method which prompts

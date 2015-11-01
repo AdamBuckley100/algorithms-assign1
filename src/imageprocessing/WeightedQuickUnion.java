@@ -1,8 +1,12 @@
 package imageprocessing;
 
 public class WeightedQuickUnion {
+	
+	// id = an int array of integers. (how single components list).
 	private int[] id;
+	// sz is size of a single component (how tall it's tree is)
 	private int[] sz;
+	// count is number of components in an image.
 	private int count;
 
 	public WeightedQuickUnion(int N) {
@@ -14,13 +18,13 @@ public class WeightedQuickUnion {
 			sz[i] = 1;
 		}
 	}
-	
+
 	public int getSize()
 	{
 		return sz.length;
 	}
-	
-//count is the number of individual objects
+
+	//count is the number of individual objects
 	public int count() {
 		return count;
 	}
@@ -29,6 +33,7 @@ public class WeightedQuickUnion {
 	{
 		while (p != id[p])
 		{
+			//line below: to keep tree almost completely flat. (path compression).
 			id[p] = id[id[p]];
 			p = id[p];
 		}

@@ -32,14 +32,14 @@ public class ConnectedComponentImageTest {
 		if(connectedComponentImage1.getPicture() instanceof Picture)
 		{ System.out.println("it's a picture object"); }
 	}
-	
+
 	@Test
 	public void testCountComponents()
 	{
 		int counting = connectedComponentImage1.countComponents();
 		assertTrue(counting == 3);
 	}
-	
+
 	@Test
 	public void testBoundingBoxForEveryObject()
 	{
@@ -48,7 +48,7 @@ public class ConnectedComponentImageTest {
 		{ System.out.println("It's still a picture object after this "
 				+ "method has been run"); }
 	}
-	
+
 	@Test
 	public void testRandomColour()
 	{
@@ -57,7 +57,7 @@ public class ConnectedComponentImageTest {
 		{ System.out.println("It's still a picture object after this "
 				+ "method has been run"); }
 	}		
-	
+
 	@Test
 	public void testBinaryComponentImage()
 	{
@@ -66,7 +66,7 @@ public class ConnectedComponentImageTest {
 		{ System.out.println("It's still a picture object after this "
 				+ "method has been run"); }
 	}
-	
+
 	@Test
 	public void testBinaryComponentImage2()
 	{
