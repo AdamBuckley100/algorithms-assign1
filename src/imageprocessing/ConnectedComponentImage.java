@@ -198,7 +198,7 @@ public class ConnectedComponentImage {
 	 */
 	private int mainMenu()     
 	{ 
-		StdOut.println("Assignment 1 (Picture Identification) App:");
+		StdOut.println("Put input the number of your choice:");
 		StdOut.println("---------");     
 		StdOut.println("  1) See the origial picture"); 
 		StdOut.println("  2) Show the picture: in Binarized form");
@@ -221,46 +221,6 @@ public class ConnectedComponentImage {
 	}
 
 	/**
-	 * This is a rough section of code below to try to take separate objects and place them
-	 * into an array list of their own.
-	 */
-	private ListMultimap<Integer, Integer> puttingTogetherAnArrayOfTheObjectsInPic()
-	{
-		Picture pictureInQuestion = binaryComponentImage();
-		WeightedQuickUnion weightQuickUnion = new WeightedQuickUnion(pictureInQuestion.width()*pictureInQuestion.height());
-
-		ListMultimap<Integer, Integer> multimap = ArrayListMultimap.create();
-		ArrayList<Integer> roots = new ArrayList<Integer>();
-
-		for (int i = 0; i < pictureInQuestion.width(); i++)
-		{
-			for (int j = 0; j < pictureInQuestion.height(); j++)
-			{
-				if (!roots.contains(weightQuickUnion.root(linear(i,j))))
-				{
-					roots.add(weightQuickUnion.root(linear(i,j)));
-				}
-
-			}
-		}
-
-		for(int a = 0; a < roots.size(); a++) 
-		{
-			for (int i = 0; i < pictureInQuestion.width(); i++)
-			{
-				for (int j =0; j < pictureInQuestion.height(); j++)
-				{
-					if (weightQuickUnion.root(linear(i,j)) == roots.get(a))
-					{
-						multimap.put(roots.get(a), linear(i,j));
-					}
-				}
-			}
-		}
-		return multimap;
-	}
-
-	/**
 	 *  This method returns a pic object of type Picture.
 	 *  This pic object will be the original user-inputted
 	 *  image, but it will be binarized and there will be a red box
@@ -273,7 +233,7 @@ public class ConnectedComponentImage {
 	 */
 	public Picture boundingBoxForEveryObject()
 	{
-		ListMultimap<Integer, Integer> multimap = puttingTogetherAnArrayOfTheObjectsInPic();
+		ListMultimap<Integer, Integer> multimap = ArrayListMultimap.create();
 		Picture pic = binaryComponentImage();
 
 		WeightedQuickUnion weightQuickUnion = new WeightedQuickUnion(pic.width()*pic.height());
@@ -353,7 +313,7 @@ public class ConnectedComponentImage {
 		}
 		return pic;
 	}
-
+	
 	/**
 	 * 
 	 * The randomColour method creates a coloured image
@@ -361,14 +321,14 @@ public class ConnectedComponentImage {
 	 * 
 	 * In this method, first the picture is binarized then
 	 * essentially every separate singular component in
-	 * the picture will be given a diffierent colour.
+	 * the picture will be given a different colour.
 	 * 
 	 * Note: No two components will have the same exact colour.
 	 * 
 	 */
 	public Picture randomColour()
 	{
-		ListMultimap<Integer, Integer> multimap = puttingTogetherAnArrayOfTheObjectsInPic();
+		ListMultimap<Integer, Integer> multimap = ArrayListMultimap.create();
 		Picture pic = binaryComponentImage();
 
 		WeightedQuickUnion weightQuickUnion = new WeightedQuickUnion(pic.width()*pic.height());
@@ -405,8 +365,8 @@ public class ConnectedComponentImage {
 		int minX = pic.width();
 		int maxY = 0;
 		int minY = pic.height();
+		
 		for(Integer root: roots)
-
 		{
 			Random randomization = new Random();
 			Color colour = new Color(randomization.nextInt(255),randomization.nextInt(255),randomization.nextInt(255));
@@ -481,7 +441,7 @@ public class ConnectedComponentImage {
 			break;
 			case 5:   showPicture(randomColour());
 			break;
-			default:    System.out.println("Invalid option entered (you must enter 0-2 inclusive)");
+			default:  System.out.println("Invalid option entered (you must enter 0-2 inclusive)");
 			break;
 			}
 			//pause the program so that the user can read what we just printed to the terminal window

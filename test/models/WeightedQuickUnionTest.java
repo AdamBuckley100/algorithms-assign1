@@ -18,8 +18,6 @@ public class WeightedQuickUnionTest extends junit.framework.TestCase {
 	public void testSize()
 	{
 		assertEquals(weightQuickUnion.getSize(), 10000);
-		
-		
 	}
 	
 	@Test
@@ -46,7 +44,6 @@ public class WeightedQuickUnionTest extends junit.framework.TestCase {
 		int inputTwo = 7;
 		
 		weightQuickUnion.union(inputOne, inputTwo);
-		assertEquals(9999, weightQuickUnion.count());
-		
+		assertEquals(9999, weightQuickUnion.count());	
 	}
 }
