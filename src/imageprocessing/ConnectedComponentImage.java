@@ -217,8 +217,7 @@ public class ConnectedComponentImage {
 		}
 		catch (InputMismatchException e)
 		{
-			//default option in the run method (method directly below) will be executed when 0-12 
-			// has not been inputted in try, a different charactar was passed instead.
+			// the default option in the run method should be executed instead.
 		}
 		return option;
 	}
@@ -440,7 +439,7 @@ public class ConnectedComponentImage {
 			break;
 			case 5:   showPicture(randomColour());
 			break;
-			default:  System.out.println("Invalid option entered (you must enter 0-2 inclusive)");
+			default:  StdOut.println("Invalid option entered (you must enter 0-5 inclusive)");
 			break;
 			}
 			//pause the program so that the user can read what we just printed to the terminal window
