@@ -1,19 +1,7 @@
 package models;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import static org.junit.Assert.*;
 import imageprocessing.ConnectedComponentImage;
-import imageprocessing.Luminance;
-
-import java.util.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,16 +11,7 @@ import edu.princeton.cs.introcs.Picture;
 
 public class ConnectedComponentImageTest {
 
-	private Picture picture;
-	private Scanner input;
 	private ConnectedComponentImage connectedComponentImage1;
-	private JFrame frame;
-
-	//@Test
-	//public void test() {
-	//	setup();
-	//	testPictureExistance();
-	//S}
 
 	@Before
 	public void setup()

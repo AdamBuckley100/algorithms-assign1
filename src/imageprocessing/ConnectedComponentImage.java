@@ -28,7 +28,7 @@ import edu.princeton.cs.introcs.StdOut;
 public class ConnectedComponentImage {
 
 	/**
-	 * instance field variables
+	 * instance field variables.
 	 */
 	private Picture picture;
 	private Scanner input;
@@ -170,11 +170,11 @@ public class ConnectedComponentImage {
 		
 		double thresholdPixelValue = 128.0;
 		
-		// convert to black or white.
+		// Convert to black or white.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				/* 
-				 * import method part below: if the color at the pixel
+				 * important method part below: if the color at the pixel
 				 * 'colourAtOnePixel' has a smaller value than the threshold
 				 * value then the color at that picture is changed to black
 				 * otherwise the color at that pixel is changed to white.
